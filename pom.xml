@@ -1,0 +1,233 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>com.pgs.uiwebautomation</groupId>
+  <artifactId>PGSUIAutomation</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <packaging>jar</packaging>
+  <name>TestMaven</name>
+  <url>http://maven.apache.org</url>
+
+ <!-- PGS Web Services -->
+  <!--  <properties>
+		<suiteName>PGSWS_Regression.xml</suiteName>
+		<appType>SoapWS</appType>
+		<env>PGS-ITG</env>
+		<browser>FireFox</browser>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <axis2.version>1.7.3</axis2.version>
+        <log4j.version>1.2.17</log4j.version>
+  	</properties> -->
+  	
+     <properties>
+		<suiteName>PGSUI_Regression.xml</suiteName>
+		<appType>web</appType>
+		<env>PGS-ITG-FQM</env>
+		<browser>chrome</browser>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <axis2.version>1.7.3</axis2.version>
+        <log4j.version>1.2.17</log4j.version>
+  	</properties> 
+  	
+ <build>
+ <plugins>
+
+		<plugin>
+			<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.5.1</version>
+				<configuration>
+					<source>1.8</source>
+					<target>1.8</target>
+				</configuration>
+		</plugin>
+			
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>2.19.1</version>
+				<configuration>
+					<suiteXmlFiles>
+						<suiteXmlFile>${suiteName}</suiteXmlFile>
+					</suiteXmlFiles>
+					<forkCount>0</forkCount>
+					<useSystemClassLoader>false</useSystemClassLoader>
+					<systemPropertyVariables>
+						<appType>${appType}</appType>
+						<env>${env}</env>
+						<browser>${browser}</browser>
+						<device>${device}</device>
+					</systemPropertyVariables>
+				</configuration>
+			</plugin>
+			
+			<!-- <plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-failsafe-plugin</artifactId>
+				<version>2.19.1</version>
+				<configuration>
+					<suiteXmlFiles>
+						<suiteXmlFile>${suiteName}</suiteXmlFile>
+					</suiteXmlFiles>
+				</configuration>
+			</plugin> -->
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>properties-maven-plugin</artifactId>
+				<version>1.0.0</version>
+				<executions>
+					<!-- Associate the read-project-properties goal with the initialize 
+						phase, to read the properties file. -->
+					<execution>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>read-project-properties</goal>
+						</goals>
+						<configuration>
+							<files>
+								<file>wsdl.properties</file>
+							</files>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>com.soebes.maven.plugins</groupId>
+				<artifactId>iterator-maven-plugin</artifactId>
+				<version>0.4</version>
+				<executions>
+<!--                           <execution>
+                                    <phase>generate-sources</phase>
+                                    <goals>
+                                          <goal>iterator</goal>
+                                    </goals>
+                                    <configuration>
+                                          <content>${hp.wsdls}</content>
+                                          <pluginExecutors>
+                                                <pluginExecutor>
+                                                      <plugin>
+                                                            <groupId>org.apache.axis2</groupId>
+                                                            <artifactId>axis2-wsdl2code-maven-plugin</artifactId>
+                                                            <version>1.6.2</version>
+                                                      </plugin>
+                                                      <goal>wsdl2code</goal>
+                                                      <configuration>
+                                                            <wsdlFile>@item@</wsdlFile>
+                                                            <databindingName>adb</databindingName>
+                                                            <packageName>com.hpicorp.pgs.ws.stub.OPS</packageName>
+                                                            <outputDirectory>src/main/java</outputDirectory>
+                                                            <flattenFiles>true</flattenFiles>
+                                                      </configuration>
+                                                </pluginExecutor>
+                                          </pluginExecutors>
+                                    </configuration>
+                              </execution> --> 
+                        </executions> 
+
+			</plugin>
+</plugins>
+
+ </build>
+
+  <dependencies>
+  <!--  adding ws pom dependancy -->
+  
+<!-- https://mvnrepository.com/artifact/com.sun.jersey/jersey-json -->
+<dependency>
+    <groupId>com.sun.jersey</groupId>
+    <artifactId>jersey-json</artifactId>
+    <version>1.19.2</version>
+</dependency>
+<!-- https://mvnrepository.com/artifact/org.json/json -->
+<dependency>
+    <groupId>org.json</groupId>
+    <artifactId>json</artifactId>
+    <version>20180130</version>
+</dependency>
+
+  <dependency>
+			<groupId>com.relevantcodes</groupId>
+			<artifactId>extentreports</artifactId>
+			<version>2.41.1</version>
+		</dependency>
+  <dependency>
+			<groupId>javax.mail</groupId>
+			<artifactId>mail</artifactId>
+			<version>1.4</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.apache.axis2</groupId>
+			<artifactId>axis2-kernel</artifactId>
+			<version>1.6.2</version>
+		</dependency>
+	<dependency>
+			<groupId>org.apache.axis2</groupId>
+			<artifactId>axis2-adb</artifactId>
+			<version>1.6.2</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.axis2</groupId>
+			<artifactId>axis2-transport-http</artifactId>
+			<version>1.6.2</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.axis2</groupId>
+			<artifactId>axis2-transport-local</artifactId>
+			<version>1.6.2</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.axis2</groupId>
+			<artifactId>axis2-xmlbeans</artifactId>
+			<version>1.6.2</version>
+		</dependency>
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>1.2.17</version>
+		</dependency>
+		<dependency>
+			<groupId>org.testng</groupId>
+			<artifactId>testng</artifactId>
+			<version>6.9.10</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.codoid.products</groupId>
+			<artifactId>fillo</artifactId>
+			<version>1.14</version>
+		</dependency>
+	
+		<dependency>
+			<groupId>org.apache.xmlbeans</groupId>
+			<artifactId>xmlbeans</artifactId>
+			<version>2.5.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.seleniumhq.selenium</groupId>
+			<artifactId>selenium-server</artifactId>
+			<version>2.53.1</version>
+		</dependency>
+		<dependency>
+			<groupId>io.appium</groupId>
+			<artifactId>java-client</artifactId>
+			<version>4.1.2</version>
+		</dependency>
+
+		   <dependency>
+       <groupId>org.apache.httpcomponents</groupId>
+       <artifactId>httpclient</artifactId>
+       <version>4.3.5</version>
+   </dependency>
+<dependency>
+        <groupId>org.apache.httpcomponents</groupId>
+        <artifactId>httpcore</artifactId>
+        <version>4.3.3</version>
+</dependency>
+		
+	</dependencies>
+</project>
