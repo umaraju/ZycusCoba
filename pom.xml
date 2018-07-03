@@ -22,7 +22,7 @@
   	</properties> -->
   	
      <properties>
-		<suiteName>PGSUI_Regression.xml</suiteName>
+		<suiteName>testng.xml</suiteName>
 		<appType>web</appType>
 		<env>PGS-ITG-FQM</env>
 		<browser>chrome</browser>

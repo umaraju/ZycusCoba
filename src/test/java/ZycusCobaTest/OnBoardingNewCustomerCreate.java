@@ -17,8 +17,8 @@ public class OnBoardingNewCustomerCreate {
 		
 		//Object mapping from JSON to Java object
 		ObjectMapper om = new ObjectMapper();
-		User OnBoardingCustomerData = om.readValue(new File(System.getProperty("User.dir")+"//data//CustomerCreate.json"), User.class);
-		
+		//User OnBoardingCustomerData = om.readValue(new File(System.getProperty("User.dir")+"//data//CustomerCreate.json"), User.class);
+		User OnBoardingCustomerData = om.readValue(new File(System.getProperty(".//data//CustomerCreate.json")), User.class);
 		//Validating if customer age and Phone Numbers data is correct
 		assert OnBoardingCustomerData.getAge().equals(25):"user age is wrong !!!";
 		assert OnBoardingCustomerData.getPhoneNumbers().size() == 2:"Not all phone numbers are available";
